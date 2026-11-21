@@ -12,9 +12,9 @@ public enum GeneradorFacturas {
     private final AtomicLong contador = new AtomicLong(0);
 
     public String siguienteNumero() {
-        long numero = contador.getAndIncrement();
-        return String.format("FAC-%06d", numero);
-    }
+    long numero = contador.incrementAndGet();
+    return String.format("FAC-%06d", numero);
+}
 
     /** Solo para pruebas. */
     void reiniciarParaPruebas() {
