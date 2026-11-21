@@ -54,3 +54,4 @@ Requisitos: JDK 17 o superior y Maven 3.9 o superior, o el Maven que trae Intell
 ## Referencia del patrón
 
 - https://refactoring.guru/es/design-patterns/singleton
+# 01-singleton
