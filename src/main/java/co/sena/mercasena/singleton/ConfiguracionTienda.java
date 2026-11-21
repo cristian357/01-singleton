@@ -1,5 +1,6 @@
 package co.sena.mercasena.singleton;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,10 +20,14 @@ public final class ConfiguracionTienda {
 
     private ConfiguracionTienda() {
         INSTANCIAS_CREADAS.incrementAndGet();
-        this.propiedades = cargarDesdeArchivo();
+        // Regla 2: el mapa que sale de esta clase es de solo lectura.
+        this.propiedades = Collections.unmodifiableMap(cargarDesdeArchivo());
     }
 
     public static ConfiguracionTienda getInstancia() {
+        // Regla 1: Double-Checked Locking. La lectura sin bloqueo evita el costo
+        // de sincronizar cuando la instancia ya existe; la segunda comprobación
+        // dentro del bloque garantiza que solo un hilo la construya.
         ConfiguracionTienda resultado = instancia;
         if (resultado == null) {
             synchronized (ConfiguracionTienda.class) {
